@@ -211,7 +211,6 @@ RUN set -eux && \
    apk update && apk upgrade && \
    # 安装依赖包
    apk add --no-cache --clean-protected $BUILD_DEPS $PHP_BUILD_DEPS && \
-   apk add --no-cache --virtual build-dependencies $BUILD_DEPS && \
    rm -rf /var/cache/apk/* && \
    # 更新时区
    ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
@@ -290,7 +289,55 @@ ARG PKG_DEPS="\
     openssl-dev \
     pcre-dev \
     zlib-dev"
-ENV PKG_DEPS=$PKG_DEPS   
+ENV PKG_DEPS=$PKG_DEPS
+
+ARG PHP_BUILD_DEPS="\
+    ca-certificates \
+    openssl \
+    tar \
+    xz \
+    bison \
+    readline \
+    readline-dev \
+    libxslt \
+    libxslt-dev \
+    libxml2 \
+    libxml2-dev \
+    openssl \
+    openssl-dev \
+    bzip2 \
+    bzip2-dev \
+    curl \
+    curl-dev \
+    freetype \
+    freetype-dev \
+    libpng \
+    libpng-dev \
+    libwebp \
+    libwebp-dev \
+    libjpeg-turbo \
+    libjpeg-turbo-dev \
+    libsodium \
+    libsodium-dev \
+    argon2-dev \
+    coreutils \
+    linux-headers \
+    krb5-dev \
+    pcre2-dev \
+    sqlite-dev \
+    gettext-dev \
+    gmp-dev \
+    openssl-dev \
+    c-client \
+    imap-dev \
+    icu-dev \
+    ldb-dev \
+    libldap \
+    openldap-dev \
+    oniguruma-dev \
+    tidyhtml-dev \ 
+    libzip-dev"
+ENV PHP_BUILD_DEPS=$PHP_BUILD_DEPS
 
 # ***** 安装依赖 *****
 RUN set -eux && \
@@ -299,7 +346,7 @@ RUN set -eux && \
    # 更新源地址并更新系统软件
    apk update && apk upgrade && \
    # 安装依赖包
-   apk add --no-cache --clean-protected $PKG_DEPS && \
+   apk add --no-cache --clean-protected $PKG_DEPS $PHP_BUILD_DEPS && \
    rm -rf /var/cache/apk/* && \
    # 更新时区
    ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
