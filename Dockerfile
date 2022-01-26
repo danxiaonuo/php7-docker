@@ -378,7 +378,7 @@ RUN set -eux && \
     cp -rf /root/.zshrc /data/php/.zshrc && \
     sed -i '5s#/root/.oh-my-zsh#/data/php/.oh-my-zsh#' /data/php/.zshrc && \
     chmod -R 775 /data/php && \
-    mkdir -pv /data/php/etc/php-fpm.d/ && \
+    mkdir -pv /data/php/etc/php-fpm.d/ /data/php/var/run/ /data/php/var/log/ && \
     ln -sf ${PHP_DIR}/bin/* /usr/bin/ && \
     ln -sf ${PHP_DIR}/sbin/* /usr/sbin/ && \
     rm -rf /var/cache/apk/*
