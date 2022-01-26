@@ -378,9 +378,15 @@ RUN set -eux && \
     cp -rf /root/.zshrc /data/php/.zshrc && \
     sed -i '5s#/root/.oh-my-zsh#/data/php/.oh-my-zsh#' /data/php/.zshrc && \
     chmod -R 775 /data/php && \
+    mkdir -pv /data/php/etc/php-fpm.d/ && \
     ln -sf ${PHP_DIR}/bin/* /usr/bin/ && \
     ln -sf ${PHP_DIR}/sbin/* /usr/sbin/ && \
     rm -rf /var/cache/apk/*
+    
+# 拷贝文件
+COPY ["./conf/php/etc/php.ini", "/data/php/etc/php.ini"]
+COPY ["./conf/php/etc/php-fpm.conf", "/data/php/etc/php-fpm.conf"]
+COPY ["./conf/php/etc/php-fpm.d/www.conf", "/data/php/etc/php-fpm.d/www.conf"]
 
 # 启动命令
 CMD ["php-fpm"]
