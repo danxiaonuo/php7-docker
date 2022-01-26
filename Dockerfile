@@ -40,9 +40,9 @@ ENV PHP_VERSION=$PHP_VERSION
 # PHP编译参数
 ARG PHP_BUILD_CONFIG="\
     --prefix=${PHP_DIR} \
-    --with-config-file-path=/etc \
-    --with-fpm-user=php  \
-    --with-fpm-group=php \
+    --with-config-file-path=${PHP_DIR}/etc \
+    --with-fpm-user=nginx  \
+    --with-fpm-group=nginx \
     --with-curl \
     --with-freetype \
     --enable-gd \
@@ -220,8 +220,8 @@ RUN set -eux && \
    # 创建相关目录
    mkdir -pv ${DOWNLOAD_SRC} ${PHP_DIR} && \
    # 创建用户和用户组
-   addgroup -g 32546 -S www && \
-   adduser -S -D -H -u 32546 -h /var/cache/www -s /sbin/nologin -G www -g www www
+   addgroup -g 32548 -S nginx && \
+   adduser -S -D -H -u 32548 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx
 
 
 # ##############################################################################
@@ -325,8 +325,8 @@ WORKDIR /data/php
 
 # ***** 创建用户和用户组 *****
 RUN set -eux && \
-    addgroup -g 32546 -S www && \
-    adduser -S -D -H -u 32546 -h /var/cache/www -s /sbin/nologin -G www -g www www && \
+    addgroup -g 32548 -S nginx && \
+    adduser -S -D -H -u 32548 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx && \
     cp -rf /root/.oh-my-zsh /data/php/.oh-my-zsh && \
     cp -rf /root/.zshrc /data/php/.zshrc && \
     sed -i '5s#/root/.oh-my-zsh#/data/php/.oh-my-zsh#' /data/php/.zshrc && \
@@ -337,4 +337,3 @@ RUN set -eux && \
 
 # 启动命令
 CMD ["php-fpm"]
-
