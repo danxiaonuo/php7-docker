@@ -389,4 +389,4 @@ COPY ["./conf/php/etc/php-fpm.conf", "/data/php/etc/php-fpm.conf"]
 COPY ["./conf/php/etc/php-fpm.d/www.conf", "/data/php/etc/php-fpm.d/www.conf"]
 
 # 启动命令
-CMD ["php-fpm"]
+CMD ["php-fpm", "--nodaemonize", "--fpm-config", "/data/php/etc/php-fpm.conf"]
