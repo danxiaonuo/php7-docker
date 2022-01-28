@@ -139,7 +139,7 @@ ARG BUILD_DEPS="\
     gzip \
     make \
     openssl-dev \
-    pcre-dev \
+    pcre2-dev \
     tar \
     autoconf \
     dpkg-dev \
