@@ -52,7 +52,6 @@ ARG PHP_BUILD_CONFIG="\
     --with-libxml \
     --with-mysqli=mysqlnd \
     --with-pdo-mysql=mysqlnd \
-    --with-openssl \
     --with-external-pcre \
     --with-pdo-sqlite \
     --with-pear \
