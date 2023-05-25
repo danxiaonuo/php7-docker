@@ -229,13 +229,10 @@ RUN set -eux && \
     -O ${DOWNLOAD_SRC}/php-${PHP_VERSION}.tar.gz && \
     wget --no-check-certificate https://pecl.php.net/get/redis-${REDIS_VERSION}.tgz \
     -O ${DOWNLOAD_SRC}/redis-${REDIS_VERSION}.tgz && \
-    wget --no-check-certificate https://pecl.php.net/get/swoole-${SWOOLE_VERSION}.tgz \
-    -O ${DOWNLOAD_SRC}/swoole-${SWOOLE_VERSION}.tgz && \
     wget --no-check-certificate https://pecl.php.net/get/mongodb-${MONGODB_VERSION}.tgz \
     -O ${DOWNLOAD_SRC}/mongodb-${MONGODB_VERSION}.tgz && \
     cd ${DOWNLOAD_SRC} && tar xvf php-${PHP_VERSION}.tar.gz -C ${DOWNLOAD_SRC} && \
     tar zxf redis-${REDIS_VERSION}.tgz -C ${DOWNLOAD_SRC} && \
-    tar zxf swoole-${SWOOLE_VERSION}.tgz -C ${DOWNLOAD_SRC} && \
     tar zxf mongodb-${MONGODB_VERSION}.tgz -C ${DOWNLOAD_SRC}
 
 # ***** 安装PHP *****
@@ -245,9 +242,6 @@ RUN set -eux && \
     ./configure ${PHP_BUILD_CONFIG} && \
     make -j$(($(nproc)+1)) && make -j$(($(nproc)+1)) install && \
     cd ${DOWNLOAD_SRC}/redis-${REDIS_VERSION} && \
-    /data/php/bin/phpize && ./configure --with-php-config=/data/php/bin/php-config && \
-    make -j$(($(nproc)+1)) && make -j$(($(nproc)+1)) install && \
-    cd ${DOWNLOAD_SRC}/swoole-${SWOOLE_VERSION} && \
     /data/php/bin/phpize && ./configure --with-php-config=/data/php/bin/php-config && \
     make -j$(($(nproc)+1)) && make -j$(($(nproc)+1)) install && \
     cd ${DOWNLOAD_SRC}/mongodb-${MONGODB_VERSION} && \
